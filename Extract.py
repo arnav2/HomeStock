@@ -1,4 +1,4 @@
-import urllib 
+import urllib2
 
 
 def extractfile():
@@ -9,6 +9,12 @@ def extractfile():
 	       'Accept-Encoding': 'none',
 	       'Accept-Language': 'en-US,en;q=0.8',
 	       'Connection': 'keep-alive'}
-	print "downloading with urllib"
-	urllib.urlretrieve(url, "code.zip")
-	
+
+	print "downloading with urllib2"
+	req = urllib2.Request(url, headers=hdr)
+	f = urllib2.urlopen(req)
+	data = f.read()
+	with open("test4.zip", "wb") as code:
+	    code.write(data)
+
+
