@@ -1,10 +1,14 @@
 from StringIO import StringIO
 from zipfile import ZipFile
 import urllib
-from urllib import urlopen
-from urllib import urlretrieve
-testfile=urllib.URLopener()
-testfile.retrieve("https://www.nseindia.com/content/historical/EQUITIES/2016/DEC/cm29DEC2016bhav.csv.zip")
+
+url="https://www.nseindia.com/content/historical/EQUITIES/2016/DEC/cm29DEC2016bhav.csv.zip"
+res= urllib.urlopen(url)
+#header=res.info()
+html=res.read()
+
+urllib.urlretrieve(url,"code.zip")
+
 
 
 #url = urlopen("https://www.nseindia.com/content/historical/EQUITIES/2016/DEC/cm29DEC2016bhav.csv.zip")
