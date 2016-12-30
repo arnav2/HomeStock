@@ -2,7 +2,7 @@ import urllib
 import urllib2
 import requests
 import zipfile 
-
+#The first method did not work. 
 url ='https://www.nseindia.com/content/historical/EQUITIES/2016/DEC/cm29DEC2016bhav.csv.zip'
 hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -12,16 +12,15 @@ hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML,
        'Connection': 'keep-alive'}
 print "downloading with urllib"
 urllib.urlretrieve(url, "code.zip")
-zip_ref = zipfile.ZipFile("code.zip",'r')
-zip_ref.extractall(C:\Users\arnav\Downloads)
 
+#Method 2 
 print "downloading with urllib2"
 req = urllib2.Request(url, headers=hdr)
 f = urllib2.urlopen(req)
 data = f.read()
 with open("code2.zip", "wb") as code:
     code.write(data)
-
+#Method 3 
 print "downloading with requests"
 r = requests.get(url)
 with open("code3.zip", "wb") as code:
