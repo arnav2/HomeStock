@@ -94,14 +94,3 @@ class ExtractFiles():
 	#Extracting all the files.. 
 	def Extracting(): 
 		ExtractAll()
-	# Opening the CSV files. 
-	def OpenNewCSV(): 
-		newdir= os.getcwd()+'\OP Data Sorting {0}{3}{2}'.format(*tu)
-		os.makedirs(newdir)
-		os.chdir (newdir)
-		#with open():
-
-		with open('somefile.csv', 'wb') as file:
-	    		writer = csv.writer(file)
-
-    		#writer.writerows(respData)

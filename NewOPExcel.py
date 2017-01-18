@@ -1,11 +1,12 @@
-import csv
+import xlrd as xl
 import xlsxwriter 
 import os 
 import time 
-
+import numpy as np 
 # Opening the CSV files.
 class OpenFiles(): 
-    def __init__(): 
+    def __init__(self): 
+        ##This should be put in time file... 
         day=int(time.strftime("%d"))
         year=time.strftime("%Y")
         monthinteger=int(time.strftime("%m"))
@@ -13,161 +14,91 @@ class OpenFiles():
         month= monthDict[monthinteger]
         #Another way to do it 
         #month = datetime.date(1900, monthinteger, 1).strftime('%B')
-        #print month
-
-        tu=(day-1,month,year,monthinteger)
-    	newdir= os.getcwd()+'\OP Data Sorting {0}{3}{2}'.format(*tu)
+        
+        tu=(day,month,year,monthinteger)
+    	
+        #Making a directory.. 
+        newdir= os.getcwd()+'\OP Data Sorting {0}{3}{2}'.format(*tu)
         if not os.path.exists(newdir):
     	   os.makedirs(newdir)
+        #Changing or writing in that directory.. 
     	os.chdir (newdir)
-        #Make excel files instead of csv files.. 
-    def NewFile1():
-            workbook = xlsxwriter.Workbook('OP_Data_Sort_Program_File_1.xlsx') 
-        	#Worksheet on OI Data Sort Program File-1
-            workbook.add_worksheet('Lot Sizes')
 
-            workbook.add_worksheet('MWPL')
+        self.worksheetdict=[]
 
-            workbook.add_worksheet('Eq Bhav')
+        self.worksheetdict.append(['Lot Sizes','MWPL','Eq Bhav','Eq Del',"B'up of Indexes",
+        'Daily OP Data','BankNifty','USA Indexes','Indian Indexes','Stock-1',
+        'Stock-2','stock chain-1','Eq Data Pasting','FU Data final',
+        'Pasting Data','Nifty Chain','Option Chain of All Stock',
+        'Calculation Data','Gen OI Detail','All OI Data','Sheet1'])
+        
+        self.worksheetdict.append(['Daily OP Data','Pasting Data','Stock-3','Stock-4',
+                        'stock chain-2','Stock-5','Stock-6','stock chain-3',
+                        'Stock-7','Stock-8','stock chain-4','Stock-9',
+                        'Stock-10','stock chain-5'])
 
-            workbook.add_worksheet('Eq Del')
+        self.worksheetdict.append(['Daily OP Data','Pasting Data','Stock-11','Stock-12',
+                    'stock chain-6','Stock-13','Stock-14','stock chain-7',
+                    'Stock-15','Stock-16','stock chain-8','Stock-17',
+                    'Stock-18','stock chain-9'])
 
-            workbook.add_worksheet("B'up of Indexes")
+        self.worksheetdict.append(['Daily OP Data','Pasting Data','Stock-19','Stock-20',
+                    'stock chain-10','Stock-21','Stock-22','stock chain-11',
+                    'Stock-23','Stock-24','stock chain-12','Stock-25',
+                    'Stock-26','stock chain-13']) 
+        
+        print self.worksheetdict
 
-            workbook.add_worksheet('Daily OP Data')
-
-            workbook.add_worksheet('BankNifty')
-
-            workbook.add_worksheet('USA Indexes')
-
-            workbook.add_worksheet('Indian Indexes')
-
-            workbook.add_worksheet('Stock-1')
-
-            workbook.add_worksheet('Stock-2')
-
-            workbook.add_worksheet('stock chain-1')
-
-            workbook.add_worksheet('Eq Data Pasting')
-
-            workbook.add_worksheet('FU Data final')
-
-            workbook.add_worksheet('Pasting Data')
-
-            workbook.add_worksheet('Nifty Chain')
-
-            workbook.add_worksheet('Option Chain of All Stock')
-
-            workbook.add_worksheet('Calculation Data')
-
-            workbook.add_worksheet('Gen OI Detail')
-
-            workbook.add_worksheet('All OI Data')
+        self.workbook=[]
+        self.worksheet=[]
+        
+        for i in range(0,4):   
+            self.workbook.append(xlsxwriter.Workbook('OP_Data_Sort_Program_File_'+str(i+1)+'.xlsx')) 
+            #To make a list of lists 
+            self.worksheet.append([])
             
-            workbook.add_worksheet('Sheet1')
+            for j in range(0,len(self.worksheetdict[i])-1):
+                self.worksheet[i].append(self.workbook[i].add_worksheet((self.worksheetdict[i])[j]))    
 
-    def NewFile2():
-            workbook = xlsxwriter.Workbook('OP_Data_Sort_Program_File_2.xlsx')
+    def NewFile1(self):
+        
+        ##Reads Data from a file very easily... XLRD might be useful in the future. 
+        #TeamPointWorkbook = xl.open_workbook('OP_Data_Sort_Program_File_1.xlsx')       
+        #pointSheets = TeamPointWorkbook.sheet_names()
+        print pointSheets
+            #print len(sheet)
 
-            workbook.add_worksheet('Daily OP Data')
-
-            workbook.add_worksheet('Pasting Data')
-
-            workbook.add_worksheet('Stock-3')
-
-            workbook.add_worksheet('Stock-4')
-
-            workbook.add_worksheet('stock chain-2')
-
-            workbook.add_worksheet('Stock-5')
-
-            workbook.add_worksheet('Stock-6')
-
-            workbook.add_worksheet('stock chain-3')
-
-            workbook.add_worksheet('Stock-7')
-
-            workbook.add_worksheet('Stock-8')
-
-            workbook.add_worksheet('stock chain-4')
-
-            workbook.add_worksheet('Stock-9')
-
-            workbook.add_worksheet('Stock-10')
-
-            workbook.add_worksheet('stock chain-5')
+    def NewFile2(self):
+#Just make a loop instead that loops through all the names in workbook 2 and puts in a new worksheet. 
+#Then work with each worksheet in a different file 
+#Use if else condition from a worksheet name. 
+            
+            
 
 
-    def NewFile3():
+        print "shit"
 
-        workbook = xlsxwriter.Workbook('OP_Data_Sort_Program_File_3.xlsx')
+    def NewFile3(self):
+#Just make a loop instead that loops through all the names in workbook 3
+# and puts in a new worksheet. 
+#Then work with each worksheet in a different file 
+#Use if else condition from a worksheet name. 
+       
+        print "shit"    
+  
+    def NewFile4(self): 
+        print "shit"
+#Just make a loop instead that loops through all the names in workbook 4
+# and puts in a new worksheet. 
+#Then work with each worksheet in a different file 
+#Use if else condition from a worksheet name. 
+        
+    def __enter__(self):
+        return self
+    
+    def __exit__(self,exc_type, exc_value, traceback):
+        for i in range(0,len(self.workbook)-1): 
+            self.workbook[i].close()
 
-        workbook.add_worksheet('Daily OP Data')
-
-        workbook.add_worksheet('Pasting Data')
-
-        workbook.add_worksheet('Stock-11')
-
-        workbook.add_worksheet('Stock-12')
-
-        workbook.add_worksheet('stock chain-6')
-
-        workbook.add_worksheet('Stock-13')
-
-        workbook.add_worksheet('Stock-14')
-
-        workbook.add_worksheet('stock chain-7')
-
-        workbook.add_worksheet('Stock-15')
-
-        workbook.add_worksheet('Stock-16')
-
-        workbook.add_worksheet('stock chain-8')
-
-        workbook.add_worksheet('Stock-17')
-
-        workbook.add_worksheet('Stock-18')
-
-        workbook.add_worksheet('stock chain-9')    
-    def NewFile4(): 
-        workbook = xlsxwriter.Workbook('OP_Data_Sort_Program_File_4.xlsx')
-
-        workbook.add_worksheet('Daily OP Data')
-
-        workbook.add_worksheet('Pasting Data')
-
-        workbook.add_worksheet('Stock-19')
-
-        workbook.add_worksheet('Stock-20')
-
-        workbook.add_worksheet('stock chain-10')
-
-        workbook.add_worksheet('Stock-21')
-
-        workbook.add_worksheet('Stock-22')
-
-        workbook.add_worksheet('stock chain-11')
-
-        workbook.add_worksheet('Stock-23')
-
-        workbook.add_worksheet('Stock-24')
-
-        workbook.add_worksheet('stock chain-12')
-
-        workbook.add_worksheet('Stock-25')
-
-        workbook.add_worksheet('Stock-26')
-
-        workbook.add_worksheet('stock chain-13')      
-
-
-
-    #with open('OP_Data_Sort_Program_File_1.csv', 'wb') as fil1:
-    #		writer = csv.writer(fil1)
-    #with open('OP_Data_Sort_Program_File_2.csv', 'wb') as fil2: 
-    #		writer = csv.writer(fil2)
-    #with open('OP_Data_Sort_Program_File_3.csv', 'wb') as fil3: 
-    #		writer = csv.writer(fil3)
-    #with open('OP_Data_Sort_Program_File_4.csv', 'wb') as fil4: 
-    #		writer = csv.writer(fil4)		
-		#writer.writerows(respData)
+with OpenFiles() as xyz:
+    xyz.NewFile1()
