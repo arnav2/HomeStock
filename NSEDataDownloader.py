@@ -47,10 +47,10 @@ class NSEDataDownloader():
 def main():
     tu = getCurrentDateTime()
     downloader = NSEDataDownloader()
-    downloader.download_data(DataType.CASH_MARKET, 'output/cash_market_data.zip')
-    downloader.download_data(DataType.CASH_MARKET, 'output/future_options_data.zip')
-    downloader.download_data(DataType.CASH_MARKET, 'output/open_interest_combined_data.zip')
-    downloader.download_data(DataType.CASH_MARKET, 'output/equity_delivery_data.DAT')	
+    downloader.download_data(DataType.CASH_MARKET, 'output/cash_market_data_{0}_{1}_{2}.zip'.format(*tu))
+    downloader.download_data(DataType.FUTURE_OPTIONS, 'output/future_options_data_{0}_{1}_{2}.zip'.format(*tu))
+    downloader.download_data(DataType.OPEN_INTEREST_COMBINED, 'output/open_interest_combined_data_{0}_{1}_{2}.zip'.format(*tu))
+    downloader.download_data(DataType.EQUITY_DELIVERY, 'output/equity_delivery_data_{0}_{1}_{2}.DAT'.format(*tu))	
  
 if __name__ == '__main__':
 	main()
