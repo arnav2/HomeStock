@@ -1,0 +1,44 @@
+appId: com.homestock.app
+productName: HomeStock
+directories:
+  output: dist
+  buildResources: assets
+
+files:
+  - electron/**/*
+  - backend/app/**/*
+  - backend/requirements.txt
+  - backend/start_server.py
+  - "!backend/**/__pycache__/**/*"
+  - "!backend/**/*.pyc"
+  - "!backend/venv/**/*"
+  - "!backend/.venv/**/*"
+  - "!backend/build/**/*"
+  - "!backend/dist/**/*"
+  - "!backend/*.spec"
+  - "!backend/*.log"
+
+# Python executables must be in extraResources (not asar) to be executable
+extraResources:
+  - backend/dist/homestock-backend
+  - backend/dist/homestock-backend.exe
+
+mac:
+  category: public.app-category.finance
+  target:
+    - dmg
+  icon: assets/icon.icns
+  entitlements: null
+  gatekeeperAssess: false
+
+win:
+  target:
+    - nsis
+  icon: assets/icon.ico
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+
